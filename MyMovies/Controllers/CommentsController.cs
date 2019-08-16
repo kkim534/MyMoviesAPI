@@ -72,13 +72,29 @@ namespace MyMovies.Controllers
         }
 
         // POST: api/Comments
-        [HttpPost]
-        public async Task<ActionResult<Comments>> PostComments(Comments comments)
+        [HttpPost("{movieId}")]
+        public async Task<ActionResult<Comments>> PostComments([FromBody]URLDTO data, int movieId)
         {
-            _context.Comments.Add(comments);
+            String postedComment;
+            try
+            {
+                postedComment = data.URL;
+            }
+            catch
+            {
+                return BadRequest("Error posting comment");
+            }
+
+            Comments newComment = new Comments
+            {
+                MovieId = movieId,
+                Comment = postedComment
+            };
+
+            _context.Comments.Add(newComment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetComments", new { id = comments.CommentId }, comments);
+            return CreatedAtAction("GetComments", new { id = newComment.CommentId }, newComment);
         }
 
         // DELETE: api/Comments/5

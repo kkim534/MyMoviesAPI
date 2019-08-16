@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using MyMovies.Model;
+
 namespace MyMovies.DAL
 {
-    public class IMovieRepository
+    public interface IMovieRepository : IDisposable
     {
-        public IMovieRepository()
-        {
-        }
+        IEnumerable<Movie> GetMovie();
+        Movie GetMovieByID(int MovieId);
+        void InsertMovie(Movie movie);
+        void DeleteMovie(int MovieId);
+        void UpdateMovie(Movie movie);
+        void Save();
     }
 }

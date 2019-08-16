@@ -47,7 +47,13 @@ namespace MyMovies.Model
 
             modelBuilder.Entity<Movie>(entity =>
             {
+                entity.Property(e => e.Cast).IsUnicode(false);
+
+                entity.Property(e => e.Director).IsUnicode(false);
+
                 entity.Property(e => e.MovieTitle).IsUnicode(false);
+
+                entity.Property(e => e.Plot).IsUnicode(false);
 
                 entity.Property(e => e.ThumbnailUrl).IsUnicode(false);
             });

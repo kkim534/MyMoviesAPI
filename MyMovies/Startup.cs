@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swashbuckle.AspNetCore.Swagger;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MyMovies.Model;
+using AutoMapper;
 
 namespace MyMovies
 {
@@ -26,11 +29,40 @@ namespace MyMovies
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDbContext<MyMoviesContext>();
+            services.AddAutoMapper(typeof(Startup));
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "Scribr API",
+                    Version = "v1",
+                    Description = "A web API providing a custom toolkit for YouTube video transcription.",
+                    Contact = new Contact
+                    {
+                        Name = "MSA 2019 - Phase 2",
+                        Email = "nzmsa@microsoft.com",
+                        Url = "https://github.com/NZMSA/2018-Phase-2"
+                    },
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ScribrAPI V1");
+                c.RoutePrefix = string.Empty; // launch swagger from root
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
