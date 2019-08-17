@@ -107,7 +107,7 @@ namespace MyMovies.Controllers
             _context.Movie.Add(movie);
             await _context.SaveChangesAsync();
 
-            // Return success code and the info on the video object
+            // Return success code and the info on the movie object
             return CreatedAtAction("GetMovie", new { id = movie.MovieId }, movie);
         }
 
