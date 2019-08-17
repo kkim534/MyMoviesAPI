@@ -34,6 +34,7 @@ namespace MyMovies
                 builder =>
                 {
                     builder.WithOrigins("http://localhost:3000/",
+                                        "https://mymoviesmsa.azurewebsites.net",
                                         "https://mymoviesmsa.azurewebsites.net");
                 });
             });
@@ -67,7 +68,7 @@ namespace MyMovies
             // Make sure the CORS middleware is ahead of SignalR.
             app.UseCors(builder =>
             {
-                builder.WithOrigins("http://localhost:3000", "https://mymoviesmsa.azurewebsites.net")
+                builder.WithOrigins("http://localhost:3000", "https://mymoviesmsa.azurewebsites.net", "https://mymoviesmsa.azurewebsites.net")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
