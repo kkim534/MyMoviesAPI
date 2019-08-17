@@ -33,8 +33,7 @@ namespace MyMovies
                 options.AddPolicy(MyAllowSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000/",
-                                        "https://mymoviesmsa.azurewebsites.net");
+                    builder.WithOrigins("https://mymoviesmsa.azurewebsites.net");
                 });
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
