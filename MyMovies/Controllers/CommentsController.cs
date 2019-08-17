@@ -31,14 +31,14 @@ namespace MyMovies.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Comments>> GetComments(int id)
         {
-            var comments = await _context.Comments.FindAsync(id);
+            var comment = await _context.Comments.FindAsync(id);
 
-            if (comments == null)
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            return comments;
+            return comment;
         }
 
         // PUT: api/Comments/5
