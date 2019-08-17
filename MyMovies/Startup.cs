@@ -34,7 +34,7 @@ namespace MyMovies
                 builder =>
                 {
                     builder.WithOrigins("http://localhost:3000/",
-                                        "http://azurewebsites.net");
+                                        "https://mymoviesmsa.azurewebsites.net");
                 });
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
