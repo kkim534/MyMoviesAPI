@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MyMovies.Model;
 using AutoMapper;
+using MyMovies.CentralHub;
 
 namespace MyMovies
 {
@@ -28,6 +29,9 @@ namespace MyMovies
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Registering Azure SignalR service
+            services.AddSignalR();
+
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,
@@ -72,6 +76,12 @@ namespace MyMovies
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
+            });
+            // SignalR
+            app.UseFileServer();
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<SignalrHub>("/hub");
             });
             app.UseSwagger();
 

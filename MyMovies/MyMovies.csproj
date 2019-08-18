@@ -39,5 +39,6 @@
     <Folder Include="Model\" />
     <Folder Include="Helper\" />
     <Folder Include="DAL\" />
+    <Folder Include="CentralHub\" />
   </ItemGroup>
 </Project>
